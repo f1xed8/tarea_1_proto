@@ -15,5 +15,8 @@ struct grupo6{
     BYTE fcs;   // 9 bits
     BYTE frame[LARGO_FRAME];
 };
+struct auxiliares{
+    int rim;
+};
 
 #endif //TAREA_1_PROTOCOLO_H

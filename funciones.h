@@ -8,6 +8,9 @@ void mensaje_prueba();
 void mensaje_texto();
 void archivo_prueba();
 
-void empaquetamiento();
+int empaquetamiento();
+bool desempaquetamiento();
+void enviar(proto);
+void recibir(proto);
 
 #endif //TAREA_1_FUNCIONES_H
