@@ -2,7 +2,7 @@
 #define TAREA_1_FUNCIONES_H
 #include "protocolo.h"
 
-void menu();
+void menu(grupo6 &proto);
 void cerrar_receptor();
 void mensaje_prueba();
 void mensaje_texto();

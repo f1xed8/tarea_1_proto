@@ -3,8 +3,8 @@
 #include "protocolo.h"
 
 int main() {
-    //menu();
     grupo6 proto;
+    menu(proto);
     enviar(proto);
     recibir(proto);
     return 0;

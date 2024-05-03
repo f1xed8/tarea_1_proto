@@ -2,17 +2,13 @@
 #include <cstring>
 #include "funciones.h"
 #include "protocolo.h"
-extern int rim = 0; // Declaración de la variable global rim
-
-#include <cstdio>
-#include "protocolo.h"
 
 void menu(grupo6 &proto) {
     printf("Bienvenid@ a la Tarea 1!\n\nFavor, indíquenos ¿Qué acción le gustaría realizar\n");
     printf("1.- Cerrar el programa receptor         3.- Enviar mensaje de texto\n"
-           "2.- Enviar mensaje de prueba            4.- Visualizar mensaje de archivo de prueba");
+           "2.- Enviar mensaje de prueba            4.- Visualizar mensaje de archivo de prueba\n");
+    int rim = 0;
     scanf("%d", &rim);   // rim = respuesta menú inicial
-
     switch (rim) {
         case 1:
             proto.cmd=1;
@@ -32,7 +28,7 @@ void menu(grupo6 &proto) {
             break;
         default:
             proto.cmd=5;
-            printf("Acción no encontrada :'(");
+            printf("Acción no encontrada :'(\n");
             break;
     }
 }
@@ -81,7 +77,7 @@ int fcs(BYTE *arr, int tam_fcs) {
         valor_fcs ^= arr[i]; // Realiza una operación XOR con cada byte del arreglo
         for (int j = 0; j < 8; j++) {
             if (valor_fcs & 0x01) {
-                valor_fcs = ((valor_fcs >> 1) ^ 0x100); // Realiza una operación XOR con el polinomio CRC (0x100 = x^8)
+                valor_fcs = ((valor_fcs >> 1) ^ 0x100);
             } else {
                 valor_fcs >>= 1;
             }
@@ -92,8 +88,8 @@ int fcs(BYTE *arr, int tam_fcs) {
 void enviar(grupo6 &proto){
     printf("Favor, ingrese su mensaje a enviar\n");
     scanf("%31s",proto.data); // Almacena un mensaje de máximo 31 bytes
-    proto.lng = empaquetamiento(proto);
-    memcpy(proto.frame, proto.frame, proto.lng + 2);
+    proto.lng = strlen((const char*) proto.data);
+    memcpy(proto.frame, proto.frame, proto.lng + 4);
 }
 void recibir(grupo6 &proto){
     bool estado = desempaquetamiento(proto, proto.lng);

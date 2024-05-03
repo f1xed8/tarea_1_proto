@@ -14,10 +14,6 @@
   <component name="ChangeListManager">
     <list default="true" id="28974d0c-7017-4767-9259-a1824c82bf64" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/funciones.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/funciones.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/funciones.h" beforeDir="false" afterPath="$PROJECT_DIR$/funciones.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/makefile" beforeDir="false" afterPath="$PROJECT_DIR$/makefile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,8 +112,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="C/C++ File.main.cpp" />
       <item itemvalue="CMake Application.tarea_1" />
+      <item itemvalue="C/C++ File.main.cpp" />
       <item itemvalue="Makefile Target.%.o" />
       <item itemvalue="Makefile Target.all" />
       <item itemvalue="Makefile Target.clean" />
@@ -145,7 +141,7 @@
       <workItem from="1714703639316" duration="8144000" />
       <workItem from="1714712175626" duration="63000" />
       <workItem from="1714743031875" duration="3282000" />
-      <workItem from="1714747207553" duration="2117000" />
+      <workItem from="1714747207553" duration="3331000" />
     </task>
     <servers />
   </component>

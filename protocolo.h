@@ -6,7 +6,6 @@
 /*#define VELOCIDAD 500 // Se define la velocidad
 #define PIN_RX 18 // Se define el pin de recepción de señal
 #define PIN_RZ 17 // Se define el pin de envío de señal*/
-extern int rim; // Declaración de la variable global rim
 
 //  Se define la estructura del grupo 6 según el protocolo ya revisado por el profesor
 struct grupo6{
