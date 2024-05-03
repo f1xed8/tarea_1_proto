@@ -3,7 +3,9 @@
 #include "protocolo.h"
 
 int main() {
-    grupo6 datos; // Declarar una instancia de grupo6
-    menu(datos); // Llamar a la función menu con datos como argumento
+    //menu();
+    grupo6 proto;
+    enviar(proto);
+    recibir(proto);
     return 0;
 }

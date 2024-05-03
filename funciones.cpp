@@ -2,11 +2,12 @@
 #include <cstring>
 #include "funciones.h"
 #include "protocolo.h"
+extern int rim = 0; // Declaración de la variable global rim
 
 #include <cstdio>
 #include "protocolo.h"
 
-void menu(grupo6 & proto) {
+void menu(grupo6 &proto) {
     printf("Bienvenid@ a la Tarea 1!\n\nFavor, indíquenos ¿Qué acción le gustaría realizar\n");
     printf("1.- Cerrar el programa receptor         3.- Enviar mensaje de texto\n"
            "2.- Enviar mensaje de prueba            4.- Visualizar mensaje de archivo de prueba");
@@ -35,8 +36,7 @@ void menu(grupo6 & proto) {
             break;
     }
 }
-void cerrar_receptor(auxiliares *aux){
-    exit(0);
+void cerrar_receptor(){
 }
 void mensaje_prueba(){
 
@@ -60,7 +60,7 @@ bool desempaquetamiento(grupo6 &proto, int tam) {
     proto.cmd = proto.frame[0] & 0x0F;
     proto.lng = (proto.frame[0] >> 4) & 0x0F;
     proto.lng |= (proto.frame[1] & 0x01) << 4;
-    if (tam != (proto.lng + 3)) { // Arroja error en caso de que el tamaño no coincida
+    if (tam != (proto.lng + 2)) { // Arroja error en caso de que el tamaño no coincida
         return false;
     }
     if (proto.lng > 0 && (proto.lng <= LARGO_DATO)) {   // En caso de que lng sea mayor a 0, y menor o igual a largo dato, comienza a desempaquetar
@@ -75,18 +75,45 @@ bool desempaquetamiento(grupo6 &proto, int tam) {
     }
     return true;
 }
-int fcs(BYTE *arr, int tamaño_fcs) {
-    int fcs_value = 0; // Inicializa el valor del FCS a 0
-    for (int i = 0; i < tamaño_fcs; i++) {
-        fcs_value ^= arr[i]; // Realiza una operación XOR con cada byte del arreglo
+int fcs(BYTE *arr, int tam_fcs) {
+    int valor_fcs = 0; // Inicializa el valor del fcs a 0
+    for (int i = 0; i < tam_fcs; i++) {
+        valor_fcs ^= arr[i]; // Realiza una operación XOR con cada byte del arreglo
         for (int j = 0; j < 8; j++) {
-            if (fcs_value & 0x01) {
-                fcs_value = (fcs_value >> 1) ^ 0x100); // Realiza una operación XOR con el polinomio CRC (0x100 = x^8)
+            if (valor_fcs & 0x01) {
+                valor_fcs = ((valor_fcs >> 1) ^ 0x100); // Realiza una operación XOR con el polinomio CRC (0x100 = x^8)
             } else {
-                fcs_value >>= 1;
+                valor_fcs >>= 1;
             }
         }
     }
-
-    return fcs_value & 0x1FF; // Ajusta el resultado para que tenga un tamaño de 9 bits
+    return valor_fcs & 0x1FF; // Ajusta el resultado para que tenga un tamaño de 9 bits
+}
+void enviar(grupo6 &proto){
+    printf("Favor, ingrese su mensaje a enviar\n");
+    scanf("%31s",proto.data); // Almacena un mensaje de máximo 31 bytes
+    proto.lng = empaquetamiento(proto);
+    memcpy(proto.frame, proto.frame, proto.lng + 2);
+}
+void recibir(grupo6 &proto){
+    bool estado = desempaquetamiento(proto, proto.lng);
+    printf("Se recibió un mensaje de manera %s\n",estado?"incorrecta":"correcta");
+    printf("El largo del mensaje es de %d bytes\n¿Desea visualizar el mensaje? (S/N): ", proto.lng);
+    char SN;
+    scanf(" %c", &SN);
+    switch (SN) {
+        case 'S':
+        case 'Y':
+        case 'y':
+        case 's':
+            printf("%s\n",proto.data);
+            break;
+        case 'N':
+        case 'n':
+            printf("Entendido!\n");
+            break;
+        default:
+            printf("Opción inválida.\n");
+            break;
+    }
 }
