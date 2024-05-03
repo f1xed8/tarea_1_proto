@@ -1,11 +1,9 @@
 #include <cstdio>
-//#include <wiringPi.h>
 #include "funciones.h"
 #include "protocolo.h"
 
 int main() {
-    menu(datos, &aux);
-    //empaquetamiento();
-    //desempaquetamiento();
+    grupo6 datos; // Declarar una instancia de grupo6
+    menu(datos); // Llamar a la función menu con datos como argumento
     return 0;
 }

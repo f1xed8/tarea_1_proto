@@ -13,14 +13,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28974d0c-7017-4767-9259-a1824c82bf64" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/emisor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/emisor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/funciones.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/funciones.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/funciones.h" beforeDir="false" afterPath="$PROJECT_DIR$/funciones.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocolo.h" beforeDir="false" afterPath="$PROJECT_DIR$/protocolo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/receptor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/receptor.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +130,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714703627334</updated>
-      <workItem from="1714703639316" duration="5738000" />
+      <workItem from="1714703639316" duration="8144000" />
     </task>
     <servers />
   </component>
