@@ -89,7 +89,7 @@ void enviar(grupo6 &proto){
     printf("Favor, ingrese su mensaje a enviar\n");
     scanf("%31s",proto.data); // Almacena un mensaje de máximo 31 bytes
     proto.lng = strlen((const char*) proto.data);
-    memcpy(proto.frame, proto.frame, proto.lng + 4);
+    memcpy(proto.frame, proto.data, proto.lng + 4);
 }
 void recibir(grupo6 &proto){
     bool estado = desempaquetamiento(proto, proto.lng);
