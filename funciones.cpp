@@ -50,12 +50,11 @@ int empaquetamiento(grupo6 &proto) {
     proto.fcs = fcs(proto.frame, proto.lng + 2);    // Calculamos fcs adicionando el cmd y el lng
     proto.frame[proto.lng + 2] = proto.fcs & 0xFF;  // Se agregan los bits menos significativos primero
     proto.frame[proto.lng + 3] = (proto.fcs >> 8) & 0x01;
-    return proto.lng + 3;   // Indica el tamaño del paquete
+    return proto.lng + 4;   // Indica el tamaño del paquete
 }
 bool desempaquetamiento(grupo6 &proto, int tam) {
     proto.cmd = proto.frame[0] & 0x0F;
-    proto.lng = (proto.frame[0] >> 4) & 0x0F;
-    proto.lng |= (proto.frame[1] & 0x01) << 4;
+    proto.lng = ((proto.frame[0] >> 4) & 0x0F) | ((proto.frame[1] & 0x01) << 4);
     if (tam != (proto.lng + 2)) { // Arroja error en caso de que el tamaño no coincida
         return false;
     }
@@ -87,13 +86,15 @@ int fcs(BYTE *arr, int tam_fcs) {
 }
 void enviar(grupo6 &proto){
     printf("Favor, ingrese su mensaje a enviar\n");
-    scanf("%31s",proto.data); // Almacena un mensaje de máximo 31 bytes
+    scanf("%31s", proto.data); // Almacena un mensaje de máximo 31 bytes
     proto.lng = strlen((const char*) proto.data);
-    memcpy(proto.frame, proto.data, proto.lng + 4);
+    empaquetamiento(proto); // Empaqueta los datos antes de copiarlos en el frame
+    printf("enviar: %d\n", proto.lng);
+    memcpy(proto.frame, proto.data, proto.lng + 4); // Copia el mensaje empaquetado en el frame
 }
 void recibir(grupo6 &proto){
     bool estado = desempaquetamiento(proto, proto.lng);
-    printf("Se recibió un mensaje de manera %s\n",estado?"incorrecta":"correcta");
+    printf("Se recibió un mensaje de manera %s\n",estado?"correcta":"incorrecta");
     printf("El largo del mensaje es de %d bytes\n¿Desea visualizar el mensaje? (S/N): ", proto.lng);
     char SN;
     scanf(" %c", &SN);
