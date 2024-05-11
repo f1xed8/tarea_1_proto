@@ -41,11 +41,12 @@ void mensaje_prueba(grupo6 &proto){
     strcpy(reinterpret_cast<char*>(proto.data), mensaje_de_prueba); // Copiamos el mensaje en data
     proto.lng = strlen(mensaje_de_prueba);
     empaquetamiento(proto); // Empaqueta los datos antes de copiarlos en el frame
-    printf("Mensaje enviado correctamente!\n");
+    printf("Mensaje %ld enviado correctamente!\n", i+1);
+    }
+    printf("Mensajes enviados correctamente!\n");
     printf("El mensaje es: %s\n",proto.data);
     printf("El largo del mensaje es de: %d bytes\n",proto.lng);
     printf("El comando para esta acción es: %d\n",proto.cmd);
-    }
 }
 void mensaje_texto(){
 
