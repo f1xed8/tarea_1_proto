@@ -37,11 +37,14 @@ void cerrar_receptor(){
 void mensaje_prueba(grupo6 &proto){
     for (size_t i = 0; i < 10; i++)
     {
-         const char* mensaje_de_prueba = "Mensaje de prueba del grupo 6, le saluda Daniel, Roberto y Cristopher";
+         const char* mensaje_de_prueba = "Mensaje de prueba Grupo 6";
     strcpy(reinterpret_cast<char*>(proto.data), mensaje_de_prueba); // Copiamos el mensaje en data
     proto.lng = strlen(mensaje_de_prueba);
     empaquetamiento(proto); // Empaqueta los datos antes de copiarlos en el frame
     printf("Mensaje enviado correctamente!\n");
+    printf("El mensaje es: %s\n",proto.data);
+    printf("El largo del mensaje es de: %d bytes\n",proto.lng);
+    printf("El comando para esta acción es: %d\n",proto.cmd);
     }
 }
 void mensaje_texto(){
