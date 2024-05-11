@@ -120,9 +120,9 @@ void recibir(grupo6 &proto){
     scanf(" %c", &SN);
     switch (SN) {
         case 'S':
+        case 's':
         case 'Y':
         case 'y':
-        case 's':
             printf("%s\n",proto.data);
             break;
         case 'N':
