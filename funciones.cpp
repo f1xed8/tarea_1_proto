@@ -4,7 +4,7 @@
 #include "protocolo.h"
 
 void menu(grupo6 &proto) {
-    printf("Bienvenid@ a la Tarea 1!\n\nFavor, indíquenos ¿Qué acción le gustaría realizar\n");
+    printf("Bienvenid@ a la Tarea 1!\n\nFavor, indíquenos ¿Qué acción le gustaría realizar?\n");
     printf("1.- Cerrar el programa receptor         3.- Enviar mensaje de texto\n"
            "2.- Enviar mensaje de prueba            4.- Visualizar mensaje de archivo de prueba\n");
     int rim = 0;
@@ -86,12 +86,23 @@ int fcs(BYTE *arr, int tam_fcs) {
 }
 void enviar(grupo6 &proto){
     printf("Favor, ingrese su mensaje a enviar\n");
-    scanf("%31s", proto.data); // Almacena un mensaje de máximo 31 bytes
-    proto.lng = strlen((const char*) proto.data);
+    while (true) {
+        scanf("%s", proto.data); // Almacena un mensaje de máximo 31 bytes
+        proto.lng = strlen((const char*) proto.data);   // Asigna a lng el largo de data con strlen
+        if (proto.lng > 31) {   // Condiciona que el mensaje sea de máximo 31 bytes
+                                // En caso de usar %31s generaba errores cuando el usuario ingresaba más bits,
+                                // ya que a utilizaba esas entradas como valores de las siguientes variables
+            printf("El mensaje sobrepasa la capacidad de almacenamiento que tiene nuestro protocolo\n");
+            printf("Favor, ingrese su mensaje a enviar con un máximo de 31 bytes\n");
+        } else {
+            break; // Prosigue con el código en caso de que se cumpla la condición
+        }
+    }
     empaquetamiento(proto); // Empaqueta los datos antes de copiarlos en el frame
+    printf("Mensaje enviado correctamente!\n");
 }
 void recibir(grupo6 &proto){
-    bool estado = desempaquetamiento(proto, proto.lng);
+    bool estado = desempaquetamiento(proto, proto.lng); // Definimos la variable estado para almacenar el retorno de la función desempaquetamiento
     printf("Se recibió un mensaje de manera %s\n",estado?"correcta":"incorrecta");
     printf("El largo del mensaje es de %d bytes\n¿Desea visualizar el mensaje? (S/N): ", proto.lng);
     char SN;
