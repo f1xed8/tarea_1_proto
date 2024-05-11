@@ -16,7 +16,7 @@ void menu(grupo6 &proto) {
             break;
         case 2:
             proto.cmd=2;
-            mensaje_prueba();
+            mensaje_prueba(proto);
             break;
         case 3:
             proto.cmd=3;
@@ -34,8 +34,15 @@ void menu(grupo6 &proto) {
 }
 void cerrar_receptor(){
 }
-void mensaje_prueba(){
-
+void mensaje_prueba(grupo6 &proto){
+    for (size_t i = 0; i < 10; i++)
+    {
+         const char* mensaje_de_prueba = "Mensaje de prueba del grupo 6, le saluda Daniel, Roberto y Cristopher";
+    strcpy(reinterpret_cast<char*>(proto.data), mensaje_de_prueba); // Copiamos el mensaje en data
+    proto.lng = strlen(mensaje_de_prueba);
+    empaquetamiento(proto); // Empaqueta los datos antes de copiarlos en el frame
+    printf("Mensaje enviado correctamente!\n");
+    }
 }
 void mensaje_texto(){
 

@@ -4,7 +4,7 @@
 
 void menu(grupo6 &proto);
 void cerrar_receptor();
-void mensaje_prueba();
+void mensaje_prueba(grupo6 &proto);
 void mensaje_texto();
 void archivo_prueba();
 
