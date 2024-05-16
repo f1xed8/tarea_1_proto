@@ -1,11 +1,16 @@
 all:
 		g++ -o receptor receptor.cpp funciones.cpp
 		g++ -o emisor emisor.cpp funciones.cpp
-ejecutar_emisor:
+		g++ clock.cpp -o clock lwiringPi
+solo_emisor:
 		g++ -o emisor emisor.cpp funciones.cpp
 		./emisor
-		rm emisor
-ejecutar_receptor:
+solo_receptor:
 		g++ -o receptor receptor.cpp funciones.cpp
 		./receptor
-		rm receptor
+reloj:
+		sudo ./clock
+todo:
+		sudo ./clock &
+		sudo ./receptor &
+		sudo ./emisor

@@ -46,7 +46,7 @@ void enviar(grupo6 &proto){
 }
 void recibir(grupo6 &proto){
     bool estado = desempaquetamiento(proto, proto.lng); // Definimos la variable estado para almacenar el retorno de la función desempaquetamiento
-    printf("Se recibió un mensaje de manera %s\n",estado?"correcta":"incorrecta");
+    printf("Se recibió un mensaje de manera %s\n",estado?"incorrecta":"correcta");
     printf("El largo del mensaje es de %d bytes\n¿Desea visualizar el mensaje? (S/N): ", proto.lng);
     char SN;
     scanf(" %c", &SN);

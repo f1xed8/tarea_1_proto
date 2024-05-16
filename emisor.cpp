@@ -4,7 +4,21 @@
 #include "protocolo.h" // Agregamos el protocolo
 #include <wiringPi.h>
 
+#define DELAY_PIN
+#define TX_PIN 2
+#define RX_PIN 3
+#define CLOCK_PIN 23
+
 int main(){
+    
+    if(wiringPiSetup() == -1){
+    exit(1);
+    }
+
+    pinMode(RX_PIN, INPUT);
+    pinMode(TX_PIN, OUTPUT);
+    pinMode(CLOCK_PIN,INPUT);
+
     grupo6 proto;
     menu();
     int rim = 0;
