@@ -4,7 +4,7 @@
 #include "protocolo.h" // Agregamos el protocolo
 
 int main(){
-    system("lxterminal --command=receptor");
+    system("lxterminal --command='./receptor; bash'");
     grupo6 proto;
     menu();
     int rim = 0;
