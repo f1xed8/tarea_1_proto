@@ -1,10 +1,9 @@
 #include <cstdio> //Librería para printf
-#include <cstdlib> //Librería para system
+#include <cstdlib>
 #include "funciones.h" // Agregamos la cabecera de funciones
 #include "protocolo.h" // Agregamos el protocolo
 
 int main(){
-    system("lxterminal --command='./receptor; bash'");
     grupo6 proto;
     menu();
     int rim = 0;

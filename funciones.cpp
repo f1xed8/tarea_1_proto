@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <cstring>
-#include <cstdlib>
+#include <cstdlib>  // Para exit(0)
 #include "funciones.h"
 #include "protocolo.h"
 
