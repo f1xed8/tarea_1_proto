@@ -4,7 +4,7 @@
 #include "protocolo.h" // Agregamos el protocolo
 
 int main(){
-    system("gnome-terminal -- ./receptor");
+    system("lxterminal --command=receptor");
     grupo6 proto;
     menu();
     int rim = 0;
