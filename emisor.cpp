@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include "funciones.h" // Agregamos la cabecera de funciones
 #include "protocolo.h" // Agregamos el protocolo
+#include <wiringPi.h>
 
 int main(){
     grupo6 proto;
