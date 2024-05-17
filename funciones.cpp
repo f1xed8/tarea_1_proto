@@ -3,6 +3,11 @@
 #include <cstdlib>  // Para exit(0)
 #include "funciones.h"
 #include "protocolo.h"
+#include <wiringPi.h>   // Agregamos la librería para GPIO
+
+volatile int nbits = 0; //  Declaramos una variable para contar los bits enviados
+volatile int nbytes = 0;    // Declaramos una variable para contar los bytes enviados
+int nones = 0;  // Delcaramos para calcular paridad
 
 void menu() {
     printf("Bienvenid@ a la Tarea 1!\n\nFavor, indíquenos ¿Qué acción le gustaría realizar?\n");
@@ -108,4 +113,40 @@ int fcs(BYTE *arr, int tam_fcs) {
         }
     }
     return valor_fcs & 0x1FF; // Ajusta el resultado para que tenga un tamaño de 9 bits
+}
+void cb(grupo6 &proto) {
+    if (transmision_iniciada) {
+        // Escribe en el pin TX
+        if (nbits == 0) {
+            digitalWrite(TX_PIN, 0); // Bit de inicio
+        } else if (nbits < 9) {
+            // Envía los bits de comando
+            digitalWrite(TX_PIN, (proto.cmd >> (nbits - 1)) & 0x01);
+        } else if (nbits == 9) {
+            // Envía los bits de longitud
+            digitalWrite(TX_PIN, (proto.lng >> 3) & 0x01);
+        } else if (nbits <= (9 + proto.lng * 8)) {
+            // Envía los bits de datos
+            int byte_index = (nbits - 10) / 8;
+            int bit_index = (nbits - 10) % 8;
+            digitalWrite(TX_PIN, (proto.data[byte_index] >> bit_index) & 0x01);
+        } else {
+            digitalWrite(TX_PIN, 1); // Canal libre durante 2 clocks
+        }
+
+        // Actualiza contador de bits
+        nbits++;
+
+        // Finaliza la comunicación
+        if (nbits > (10 + proto.lng * 8)) {
+            transmision_iniciada = false;
+            nbits = 0;
+        }
+    } else {
+        // Canal en reposo
+        digitalWrite(TX_PIN, 1);
+    }
+}
+void startTransmission(){
+  transmision_iniciada = true;
 }

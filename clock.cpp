@@ -1,9 +1,7 @@
-#include <wiringPi.h>
+#include <wiringPi.h>   // Agregamos la librería para GPIO
 #include <stdlib.h>
-
-#define PWM_PIN 1   // 18 BCM
-#define PWM_CLOCK_DIVISOR 192   // Divisor del reloj
-#define PWM_RANGE 1000   // Rango asignado para el trabajo
+#include "funciones.h"  // Agregamos la cabecera de funciones
+#include "protocolo.h"  // Agregamos el protocolo
 
 int main(){
 
