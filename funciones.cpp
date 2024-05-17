@@ -8,6 +8,7 @@
 volatile int nbits = 0; //  Declaramos una variable para contar los bits enviados
 volatile int nbytes = 0;    // Declaramos una variable para contar los bytes enviados
 int nones = 0;  // Delcaramos para calcular paridad
+int tam_emp;
 
 void menu() {
     printf("Bienvenid@ a la Tarea 1!\n\nFavor, indíquenos ¿Qué acción le gustaría realizar?\n");
@@ -48,6 +49,11 @@ void enviar(grupo6 &proto){
     }
     empaquetamiento(proto); // Empaqueta los datos antes de copiarlos en el frame
     printf("Mensaje enviado correctamente!\n");
+}
+// copio el frame que està empaquetado al callback y luego actualizo nbits
+void almacenamiento_a_buffer(grupo6 proto){
+    grupo6 proto;
+    memcpy ((char*)buffer_de_envio, proto.frame, tam_emp);
 }
 void recibir(grupo6 &proto){
     bool estado = desempaquetamiento(proto, proto.lng); // Definimos la variable estado para almacenar el retorno de la función desempaquetamiento
@@ -116,35 +122,41 @@ int fcs(BYTE *arr, int tam_fcs) {
 }
 void callback_emisor(void){
     grupo6 proto;
-    if (transmision_iniciada) {
-        // Escribe en el pin TX
-        if (nbits == 0) {
-            digitalWrite(TX_PIN, 0); // Bit de inicio
-        } else if (nbits < 9) {
-            // Envía los bits de comando
-            digitalWrite(TX_PIN, (proto.cmd >> (nbits - 1)) & 0x01);
-        } else if (nbits == 9) {
-            // Envía los bits de longitud
-            digitalWrite(TX_PIN, (proto.lng >> 3) & 0x01);
-        } else if (nbits <= (9 + proto.lng * 8)) {
-            // Envía los bits de datos
-            int byte_index = (nbits - 10) / 8;
-            int bit_index = (nbits - 10) % 8;
-            digitalWrite(TX_PIN, (proto.data[byte_index] >> bit_index) & 0x01);
-        } else {
-            digitalWrite(TX_PIN, 1); // Canal libre durante 2 clocks
-        }
-        // Actualiza contador de bits
-        nbits++;
-        // Finaliza la comunicación
-        if (nbits > (10 + proto.lng * 8)) {
-            transmision_iniciada = false;
-            nbits = 0;
-        }
-    } else {
-        // Canal en reposo
-        digitalWrite(TX_PIN, 1);
+if(transmision_iniciada){
+    //Escribe en el pin TX
+    if(nbits == 0){
+      digitalWrite(TX_PIN, 0); //Bit de inicio
+    }else if(nbits < 9){
+      digitalWrite(TX_PIN, (buffer_de_envio[nbytes] >> (nbits-1)) & 0x01); //Bit de dato
+//      printf("%d",(bytes[nbytes]>>(nbits-1))&0x01);
+    }else if(nbits == 9){
+//      printf("\n");
+      nones = (buffer_de_envio[nbytes]&0x01) + ((buffer_de_envio[nbytes]&0x02)>>1) + ((buffer_de_envio[nbytes]&0x04)>>2) + 
+        ((buffer_de_envio[nbytes]&0x08)>>3) + ((buffer_de_envio[nbytes]&0x10)>>4) + ((buffer_de_envio[nbytes]&0x20)>>5) + 
+        ((buffer_de_envio[nbytes]&0x40)>>6) + ((buffer_de_envio[nbytes]&0x80)>>7);
+      digitalWrite(TX_PIN, nones%2==0); //Bit de paridad
+    }else{
+      digitalWrite(TX_PIN, 1); //Canal libre durante 2 clocks
     }
+
+    //Actualiza contador de bits
+    nbits++;
+
+    //Actualiza contador de bytes
+    if(nbits == 11){
+      nbits = 0;
+      nbytes++;
+
+      //Finaliza la comunicación
+      if(nbytes==tam_emp){
+        transmision_iniciada = false;
+        nbytes = 0;
+      }
+    }
+  }else{
+    //Canal en reposo
+    digitalWrite(TX_PIN, 1);
+  }
 }
 void startTransmission(){
   transmision_iniciada = true;

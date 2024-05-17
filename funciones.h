@@ -8,6 +8,7 @@
 #define DELAY_PIN 23    // Pin para el delay
 #define TX_PIN 2    // Pin de emisión
 #define RX_PIN 3    // Pin de recepción
+volatile BYTE buffer_de_envio [LARGO_DATO];
 bool transmision_iniciada = false;
 int c = 0; int ed = 0; int end = 0;
 
@@ -22,6 +23,7 @@ int empaquetamiento(grupo6 &proto);
 bool desempaquetamiento(grupo6 &proto, int tam);
 int fcs(BYTE *arr, int tam_fcs);
 
+void almacenamiento_a_buffer(grupo6 &proto);
 void callback_emisor(void);
 void startTransmission();
 void porcentajes_mensajes();
