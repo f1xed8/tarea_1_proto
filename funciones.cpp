@@ -142,7 +142,7 @@ if(transmision_iniciada){
     //Actualiza contador de bits
     nbits++;
     //Actualiza contador de bytes
-    if(nbits == 11){
+    if(nbits == 15){
       nbits = 0;
       nbytes++;
       //Finaliza la comunicación
