@@ -20,7 +20,7 @@ int empaquetamiento(grupo6 &proto);
 bool desempaquetamiento(grupo6 &proto, int tam);
 int fcs(BYTE *arr, int tam_fcs);
 
-void callback();
+void callback(void);
 void startTransmission();
 
 #endif //TAREA_1_FUNCIONES_H

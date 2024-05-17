@@ -1,7 +1,7 @@
 #include "funciones.h"
 #include <cstdio>
 
-int main(){
+int main(){ // Oye, roberto, el nico dice q tienes q inicializar el wiringpi y los pines junto con el clock (esos los tengo declarados en funciones.h). También implementa el wiringpiISR
     grupo6 proto;
     while (true)
     {

@@ -114,7 +114,8 @@ int fcs(BYTE *arr, int tam_fcs) {
     }
     return valor_fcs & 0x1FF; // Ajusta el resultado para que tenga un tamaño de 9 bits
 }
-void callback(grupo6 &proto) {
+void callback(void) {
+    grupo6 proto;
     if (transmision_iniciada) {
         // Escribe en el pin TX
         if (nbits == 0) {
@@ -133,10 +134,8 @@ void callback(grupo6 &proto) {
         } else {
             digitalWrite(TX_PIN, 1); // Canal libre durante 2 clocks
         }
-
         // Actualiza contador de bits
         nbits++;
-
         // Finaliza la comunicación
         if (nbits > (10 + proto.lng * 8)) {
             transmision_iniciada = false;
