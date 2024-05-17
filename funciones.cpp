@@ -50,7 +50,7 @@ void enviar(grupo6 &proto){
     empaquetamiento(proto); // Empaqueta los datos antes de copiarlos en el frame
     printf("Mensaje enviado correctamente!\n");
 }
-// copio el frame que està empaquetado al callback y luego actualizo nbits
+// copio el frame que está empaquetado al callback y luego actualizo nbits
 void almacenamiento_a_buffer(grupo6 proto){
     grupo6 proto;
     memcpy ((char*)buffer_de_envio, proto.frame, tam_emp);
@@ -86,7 +86,8 @@ int empaquetamiento(grupo6 &proto) {
     proto.fcs = fcs(proto.frame, proto.lng + 2);    // Calculamos fcs adicionando el cmd y el lng
     proto.frame[proto.lng + 2] = proto.fcs & 0xFF;  // Se agregan los bits menos significativos primero
     proto.frame[proto.lng + 3] = (proto.fcs >> 8) & 0x01;
-    return proto.lng + 4;   // Indica el tamaño del paquete
+    tam_emp = proto.lng + 4;
+    return tam_emp;   // Indica el tamaño del paquete
 }
 bool desempaquetamiento(grupo6 &proto, int tam) {
     proto.cmd = proto.frame[0] & 0x0F;
