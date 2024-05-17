@@ -1,5 +1,5 @@
-#include "funciones.h"
-#include <cstdio>
+#include <cstdio>   //Librería para printf
+#include "funciones.h"  // Agregamos la cabecera de funciones
 
 int main(){ // Oye, roberto, el nico dice q tienes q inicializar el wiringpi y los pines junto con los clocks (esos los tengo declarados en funciones.h). También implementa el wiringpiISR
     grupo6 proto;
@@ -16,7 +16,7 @@ int main(){ // Oye, roberto, el nico dice q tienes q inicializar el wiringpi y l
                     bool estado = desempaquetamiento(proto, proto.lng);
                     if (estado == true){
                         c = c++;
-                        } else {
+                    } else {
                             end = end++;
                         }          
                 }

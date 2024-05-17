@@ -1,8 +1,8 @@
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>  // Para exit(0)
-#include "funciones.h"
-#include "protocolo.h"
+#include <cstdio>   //Librería para printf
+#include <cstring>  // Librería para cadenas
+#include <cstdlib>  // Librería para exit(0)
+#include "funciones.h"  // Agregamos la cabecera de funciones
+#include "protocolo.h"  // Agregamos la cabecera de protocolo
 #include <wiringPi.h>   // Agregamos la librería para GPIO
 
 volatile int nbits = 0; //  Declaramos una variable para contar los bits enviados

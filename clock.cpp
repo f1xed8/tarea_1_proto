@@ -1,5 +1,5 @@
 #include <wiringPi.h>   // Agregamos la librería para GPIO
-#include <stdlib.h>
+#include <cstdlib>  // Librería para exit(0)
 #include "funciones.h"  // Agregamos la cabecera de funciones
 #include "protocolo.h"  // Agregamos el protocolo
 

@@ -1,5 +1,5 @@
 #include <cstdio>   //Librería para printf
-#include <cstdlib>
+#include <cstdlib>  // Librería para exit(0)
 #include "funciones.h"  // Agregamos la cabecera de funciones
 #include "protocolo.h"  // Agregamos el protocolo
 #include <wiringPi.h>   // Agregamos la librería para GPIO
