@@ -8,8 +8,6 @@
 volatile int nbits = 0; //  Declaramos una variable para contar los bits enviados
 volatile int nbytes = 0;    // Declaramos una variable para contar los bytes enviados
 int nones = 0;  // Delcaramos para calcular paridad
-volatile int j = 0;
-bool finished = false;
 
 void menu() {
     printf("Bienvenid@ a la Tarea 1!\n\nFavor, indíquenos ¿Qué acción le gustaría realizar?\n");
