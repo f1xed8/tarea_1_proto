@@ -1,6 +1,6 @@
 #ifndef TAREA_1_FUNCIONES_H
 #define TAREA_1_FUNCIONES_H
-#include "protocolo.h"
+#include "protocolo.h"  // Agregamos la cabecera de protocolo
 
 #define PWM_PIN 1   // 18 BCM
 #define PWM_CLOCK_DIVISOR 192   // Divisor del reloj
