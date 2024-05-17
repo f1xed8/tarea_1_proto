@@ -139,15 +139,12 @@ if(transmision_iniciada){
     }else{
       digitalWrite(TX_PIN, 1); //Canal libre durante 2 clocks
     }
-
     //Actualiza contador de bits
     nbits++;
-
     //Actualiza contador de bytes
     if(nbits == 11){
       nbits = 0;
       nbytes++;
-
       //Finaliza la comunicación
       if(nbytes==tam_emp){
         transmision_iniciada = false;
