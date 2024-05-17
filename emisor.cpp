@@ -10,7 +10,7 @@ int main(){
         exit(1);
     }
     
-    if(wiringPiISR(DELAY_PIN, INT_EDGE_RISING, &cb) < 0){   // Delcaramos la interrupción
+    if(wiringPiISR(DELAY_PIN, INT_EDGE_RISING, &callback) < 0){   // Delcaramos la interrupción
         printf("No se puede iniciar la función de interrupción\n");
     }
 

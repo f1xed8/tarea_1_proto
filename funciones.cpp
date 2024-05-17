@@ -114,7 +114,7 @@ int fcs(BYTE *arr, int tam_fcs) {
     }
     return valor_fcs & 0x1FF; // Ajusta el resultado para que tenga un tamaño de 9 bits
 }
-void cb(grupo6 &proto) {
+void callback(grupo6 &proto) {
     if (transmision_iniciada) {
         // Escribe en el pin TX
         if (nbits == 0) {
