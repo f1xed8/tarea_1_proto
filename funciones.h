@@ -22,7 +22,7 @@ int empaquetamiento(grupo6 &proto);
 bool desempaquetamiento(grupo6 &proto, int tam);
 int fcs(BYTE *arr, int tam_fcs);
 
-void callback(void);
+void callback_emisor(void);
 void startTransmission();
 void porcentajes_mensajes();
 

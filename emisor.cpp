@@ -8,7 +8,7 @@ int main(){
     if(wiringPiSetup() == -1){  // Condición en caso de que haya algún fallo con la librería
         exit(1);
         }
-    if(wiringPiISR(DELAY_PIN, INT_EDGE_RISING, &callback) < 0){   // Delcaramos la interrupción
+    if(wiringPiISR(DELAY_PIN, INT_EDGE_RISING, &callback_emisor) < 0){   // Delcaramos la interrupción
         printf("No se puede iniciar la función de interrupción\n");
         }
     pinMode(TX_PIN, OUTPUT);
