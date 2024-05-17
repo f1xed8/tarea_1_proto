@@ -8,6 +8,7 @@
 #define DELAY_PIN 23    // Pin para el delay
 #define TX_PIN 2    // Pin de emisión
 bool transmision_iniciada = false;
+int c = 0; int ed = 0; int end = 0;
 
 void menu();
 void cerrar_receptor();
@@ -22,5 +23,6 @@ int fcs(BYTE *arr, int tam_fcs);
 
 void callback(void);
 void startTransmission();
+void porcentajesmensajes();
 
 #endif //TAREA_1_FUNCIONES_H
