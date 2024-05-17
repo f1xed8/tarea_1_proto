@@ -1,13 +1,11 @@
-#include <cstdio> //Librería para printf
+#include <cstdio>   //Librería para printf
 #include <cstdlib>
-#include "funciones.h" // Agregamos la cabecera de funciones
-#include "protocolo.h" // Agregamos el protocolo
-#include <wiringPi.h>
+#include "funciones.h"  // Agregamos la cabecera de funciones
+#include "protocolo.h"  // Agregamos el protocolo
+#include <wiringPi.h>   // Agregamos la librería para GPIO
 
 #define DELAY_PIN
 #define TX_PIN 2
-#define RX_PIN 3
-#define CLOCK_PIN 23
 
 int main(){
     
