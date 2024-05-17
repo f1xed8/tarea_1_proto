@@ -7,6 +7,7 @@
 #define PWM_RANGE 1000   // Rango asignado para el trabajo
 #define DELAY_PIN 23    // Pin para el delay
 #define TX_PIN 2    // Pin de emisión
+#define RX_PIN 3    // Pin de recepción
 bool transmision_iniciada = false;
 int c = 0; int ed = 0; int end = 0;
 

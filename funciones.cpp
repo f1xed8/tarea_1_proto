@@ -8,6 +8,8 @@
 volatile int nbits = 0; //  Declaramos una variable para contar los bits enviados
 volatile int nbytes = 0;    // Declaramos una variable para contar los bytes enviados
 int nones = 0;  // Delcaramos para calcular paridad
+volatile int j = 0;
+bool finished = false;
 
 void menu() {
     printf("Bienvenid@ a la Tarea 1!\n\nFavor, indíquenos ¿Qué acción le gustaría realizar?\n");
@@ -114,7 +116,7 @@ int fcs(BYTE *arr, int tam_fcs) {
     }
     return valor_fcs & 0x1FF; // Ajusta el resultado para que tenga un tamaño de 9 bits
 }
-void callback(void) {
+void callback(void){
     grupo6 proto;
     if (transmision_iniciada) {
         // Escribe en el pin TX
