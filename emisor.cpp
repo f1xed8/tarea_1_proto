@@ -5,7 +5,6 @@
 #include <wiringPi.h>   // Agregamos la librería para GPIO
 
 int main(){
-    
     if(wiringPiSetup() == -1){  // Condición en caso de que haya algún fallo con la librería
         exit(1);
         }
@@ -40,10 +39,8 @@ int main(){
             printf("Acción no encontrada :'(\n");
             break;
     }
-
     while(transmision_iniciada) {
         delay(1000); // Espera mientras se realiza la transmisión
     }
-
     return 0;
 }
