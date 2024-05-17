@@ -23,6 +23,6 @@ int fcs(BYTE *arr, int tam_fcs);
 
 void callback(void);
 void startTransmission();
-void porcentajesmensajes();
+void porcentajes_mensajes();
 
 #endif //TAREA_1_FUNCIONES_H

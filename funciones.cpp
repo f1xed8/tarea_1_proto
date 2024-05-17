@@ -149,7 +149,7 @@ void callback(void) {
 void startTransmission(){
   transmision_iniciada = true;
 }
-void porcentajesmensajes(){
+void porcentajes_mensajes(){
     float porcentajec = c/(c + ed + end);
     float porcentajeed = ed/(c + ed + end);
     float porcentajeend = end/(c + ed + end);
