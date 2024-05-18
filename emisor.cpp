@@ -13,34 +13,45 @@ int main(){
         }
     pinMode(TX_PIN, OUTPUT);
     grupo6 proto;
-    menu();
-    int rim = 0;
-    scanf("%d", &rim);   // rim = respuesta menú inicial
-    switch (rim) {
-        case 1:
-            proto.cmd = 1;
-            proto.lng = 0;
-            proto.frame[0] = (proto.cmd & 0x0F) | ((proto.lng & 0x0F) << 4);
-            proto.frame[1] = ((proto.lng >> 4) & 0x01);
-            break;
-        case 2:
-            mensaje_prueba(proto);
-            break;
-        case 3:
-            proto.cmd=3;
-            enviar(proto);
-            break;
-        case 4:
-            proto.cmd=4;
-            archivo_texto();
-            break;
-        default:
-            proto.cmd=5;
-            printf("Acción no encontrada :'(\n");
-            break;
+    int SN2 = 1;
+    while (SN2){
+        menu();
+        int rim = 0;
+        scanf("%d", &rim);   // rim = respuesta menú inicial
+        switch (rim) {
+            case 1:
+                proto.cmd = 1;
+                proto.lng = 0;
+                proto.frame[0] = (proto.cmd & 0x0F) | ((proto.lng & 0x0F) << 4);
+                proto.frame[1] = ((proto.lng >> 4) & 0x01);
+                SN2 = 1;
+                break;
+            case 2:
+                mensaje_prueba(proto);
+                SN2 = 1;
+                break;
+            case 3:
+                proto.cmd=3;
+                enviar(proto);
+                SN2 = 1;
+                break;
+           case 4:
+                proto.cmd=4;
+                archivo_texto();
+                SN2 = 1;
+                break;
+           default:
+                proto.cmd=5;
+                printf("Acción no encontrada :'(\n");
+                SN2 = 1;
+                break;
     }
-    while(transmision_iniciada) {
-        delay(1000); // Espera mientras se realiza la transmisión
+       while(transmision_iniciada) {
+          delay(1000); // Espera mientras se realiza la transmisión
+    }   
+        printf("Qusieras realizar otra acción?\n");
+        printf("1.- Sí\n2.- No\n");
+        scanf("%d", SN2);
     }
     return 0;
 }

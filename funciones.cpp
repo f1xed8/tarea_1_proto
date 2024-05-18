@@ -4,6 +4,7 @@
 #include "funciones.h"  // Agregamos la cabecera de funciones
 #include "protocolo.h"  // Agregamos la cabecera de protocolo
 #include <wiringPi.h>   // Agregamos la librería para GPIO
+#include <string>
 
 volatile int nbits = 0; //  Declaramos una variable para contar los bits enviados
 volatile int nbytes = 0;    // Declaramos una variable para contar los bytes enviados
@@ -50,10 +51,15 @@ void enviar(grupo6 &proto){
     empaquetamiento(proto); // Empaqueta los datos antes de copiarlos en el frame
     printf("Mensaje enviado correctamente!\n");
 }
-// copio el frame que está empaquetado al callback y luego actualizo nbits
-void almacenamiento_a_buffer(grupo6 proto){
-    grupo6 proto;
-    memcpy ((char*)buffer_de_envio, proto.frame, tam_emp);
+void convertirFrameABinario(const grupo6 *proto, int *representacionBinaria) {
+    int index = 0;
+    for (int i = proto->lng - 1; i >= 0; --i) { // Comenzamos desde el último byte del frame
+        BYTE byte = proto->frame[i];
+        for (int j = 7; j >= 0; --j) { // Procesamos los bits de derecha a izquierda
+            representacionBinaria[index++] = (byte >> j) & 0x01;
+        }
+    }
+    memcpy ((char*)buffer_de_envio, representacionBinaria, tam_emp);
 }
 void recibir(grupo6 &proto){
     bool estado = desempaquetamiento(proto, proto.lng); // Definimos la variable estado para almacenar el retorno de la función desempaquetamiento
@@ -123,7 +129,7 @@ int fcs(BYTE *arr, int tam_fcs) {
 }
 void callback_emisor(void){
     grupo6 proto;
-if(transmision_iniciada){
+    if(transmision_iniciada){
     //Escribe en el pin TX
     if(nbits == 0){
       digitalWrite(TX_PIN, 0); //Bit de inicio

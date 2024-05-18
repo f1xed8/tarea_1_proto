@@ -2,6 +2,8 @@
     "files.autoSave": "onFocusChange",
     "files.associations": {
         "cstdlib": "cpp",
-        "cstdio": "cpp"
+        "cstdio": "cpp",
+        "cstring": "cpp",
+        "string": "cpp"
     }
 }
