@@ -51,16 +51,6 @@ void enviar(grupo6 &proto){
     empaquetamiento(proto); // Empaqueta los datos antes de copiarlos en el frame
     printf("Mensaje enviado correctamente!\n");
 }
-void convertirFrameABinario(const grupo6 *proto, int *representacionBinaria) {
-    int index = 0;
-    for (int i = proto->lng - 1; i >= 0; --i) { // Comenzamos desde el último byte del frame
-        BYTE byte = proto->frame[i];
-        for (int j = 7; j >= 0; --j) { // Procesamos los bits de derecha a izquierda
-            representacionBinaria[index++] = (byte >> j) & 0x01;
-        }
-    }
-    memcpy ((char*)buffer_de_envio, representacionBinaria, tam_emp);
-}
 void recibir(grupo6 &proto){
     bool estado = desempaquetamiento(proto, proto.lng); // Definimos la variable estado para almacenar el retorno de la función desempaquetamiento
     printf("Se recibió un mensaje de manera %s\n",estado?"incorrecta":"correcta");
