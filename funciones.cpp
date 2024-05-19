@@ -49,6 +49,10 @@ void enviar(grupo6 &proto){
         }
     }
     empaquetamiento(proto); // Empaqueta los datos antes de copiarlos en el frame
+    //AQUI SE EMPIEZA A MANDAR LOS DATOS DEL EMPAQUETAMIENTO
+
+
+
     printf("Mensaje enviado correctamente!\n");
 }
 void recibir(grupo6 &proto){
@@ -63,7 +67,7 @@ void recibir(grupo6 &proto){
         case 'Y':
         case 'y':
             printf("%s\n",proto.data);
-            break;
+            break;    pinMode(TX_PIN, OUTPUT);
         case 'N':
         case 'n':
             printf("Entendido!\n");
@@ -164,4 +168,10 @@ void porcentajes_mensajes(){
     printf("%d mensajes recibidos con error no detectado\n", end);
     printf("Entonces tenemos una recepción del %%%f\n", porcentajec);
     printf("Entonces tenemos un porcentaje de error detectado de %%%f\n y un %%%f no detectado", porcentajeed, porcentajeend);
+}
+
+int pasoPin(int largo_frame){
+
+    
+
 }
