@@ -2,10 +2,10 @@ all:
 		g++ receptor.cpp -o receptor funciones.cpp -lwiringPi
 		g++ emisor.cpp -o emisor funciones.cpp -lwiringPi
 		g++ clock.cpp -o clock -lwiringPi
-solo_emisor:
+emisor:
 		g++ -o emisor emisor.cpp funciones.cpp
 		./emisor
-solo_receptor:
+receptor:
 		g++ -o receptor receptor.cpp funciones.cpp
 		./receptor
 reloj:
