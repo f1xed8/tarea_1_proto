@@ -64,7 +64,7 @@ void recibir(grupo6 &proto){
     void limpiar_buffer();
     printf("inicia void recibir");
     bool estado = desempaquetamiento(proto, proto.lng); // Definimos la variable estado para almacenar el retorno de la función desempaquetamiento
-    /*printf("Se recibió un mensaje de manera %s\n",estado?"incorrecta":"correcta");
+    printf("Se recibió un mensaje de manera %s\n",estado?"incorrecta":"correcta");
     printf("El largo del mensaje es de %d bytes\n¿Desea visualizar el mensaje? (S/N): ", proto.lng);
     char SN;
     scanf("%c", &SN);
@@ -83,11 +83,12 @@ void recibir(grupo6 &proto){
         default:
             printf("Opción inválida.\n");
             break;
-    }*/
+    }
 }
 void archivo_texto(){
 }
 int empaquetamiento(grupo6 &proto) {
+    printf("inicia bool empaquetamiento");
     proto.frame[0] = (proto.cmd & 0x0F) | ((proto.lng & 0x0F) << 4); // Agregamos al paquete el cmd y los 4 bits que nos alcanzaron a entrar del lng dentro del primer byte
     proto.frame[1] = ((proto.lng >> 4) & 0x01); // Terminamos de cargar el lng
     memcpy(&proto.frame[2], proto.data, proto.lng);
@@ -98,7 +99,6 @@ int empaquetamiento(grupo6 &proto) {
     return tam_emp;   // Indica el tamaño del paquete
 }
 bool desempaquetamiento(grupo6 &proto, int tam) {
-    printf("inicia bool empaquetamiento");
     proto.cmd = proto.frame[0] & 0x0F;
     proto.lng = ((proto.frame[0] >> 4) & 0x0F) | ((proto.frame[1] & 0x01) << 4);
     if (tam != (proto.lng + 2)) { // Arroja error en caso de que el tamaño no coincida
