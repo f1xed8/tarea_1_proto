@@ -73,8 +73,8 @@ void recibir(grupo6 &proto){
         case 's':
         case 'Y':
         case 'y':
+        printf("%s\n",proto.data);
         break;
-        //    printf("%s\n",proto.data);
           //  pinMode(TX_PIN, OUTPUT);
         case 'N':
         case 'n':
