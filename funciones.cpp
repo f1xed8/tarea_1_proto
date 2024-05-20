@@ -99,6 +99,7 @@ int empaquetamiento(grupo6 &proto) {
     return tam_emp;   // Indica el tamaño del paquete
 }
 bool desempaquetamiento(grupo6 &proto, int tam) {
+    printf("inicia bool desempaquetamiento");
     proto.cmd = proto.frame[0] & 0x0F;
     proto.lng = ((proto.frame[0] >> 4) & 0x0F) | ((proto.frame[1] & 0x01) << 4);
     if (tam != (proto.lng + 2)) { // Arroja error en caso de que el tamaño no coincida
