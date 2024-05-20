@@ -1,7 +1,7 @@
 all:
-		g++ receptor.cpp -o receptor funciones.cpp -L/usr/local/lib -lwiringPi
-		g++ emisor.cpp -o emisor funciones.cpp -L/usr/local/lib -lwiringPi
-		g++ clock.cpp -o clock -L/usr/local/lib lwiringPi
+		g++ receptor.cpp -o receptor funciones.cpp -lwiringPi
+		g++ emisor.cpp -o emisor funciones.cpp -lwiringPi
+		g++ clock.cpp -o clock -lwiringPi
 solo_emisor:
 		g++ -o emisor emisor.cpp funciones.cpp
 		./emisor
