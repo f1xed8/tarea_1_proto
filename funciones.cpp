@@ -10,6 +10,8 @@ volatile int nbits_emisor = 0; //  Declaramos una variable para contar los bits 
 volatile int nbytes_emisor = 0;    // Declaramos una variable para contar los bytes enviados
 volatile int nbits_receptor = 0; //  Declaramos una variable para contar los bits enviados
 volatile int nbytes_receptor = 0;    // Declaramos una variable para contar los bytes enviados
+bool transmision_iniciada_receptor = false;
+bool transmision_iniciada_emisor = false;
 int nones = 0;  // Delcaramos para calcular paridad
 int tam_emp;
 int par = 0;    // Declaramos la variable que nos ayudará a buscar la paridad

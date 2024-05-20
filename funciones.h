@@ -8,8 +8,8 @@
 #define DELAY_PIN 23    // Pin para el delay
 #define TX_PIN 2    // Pin de emisión
 #define RX_PIN 3    // Pin de recepción
-extern bool transmision_iniciada_receptor = false;
-extern bool transmision_iniciada_emisor = false;
+extern bool transmision_iniciada_receptor;
+extern bool transmision_iniciada_emisor;
 //int c = 0; int ed = 0; int end = 0;
 
 void menu();
