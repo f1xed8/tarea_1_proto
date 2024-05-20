@@ -15,9 +15,9 @@ int main(){ // Oye, roberto, el nico dice q tienes q inicializar el wiringpi y l
                 {
                     bool estado = desempaquetamiento(proto, proto.lng);
                     if (estado == true){
-                        c = c++;
+                        //c = c++;
                     } else {
-                            end = end++;
+                          //  end = end++;
                         }          
                 }
                     void porcentajesmensajes();
