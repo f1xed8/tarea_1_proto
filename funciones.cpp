@@ -67,7 +67,16 @@ void recibir(grupo6 &proto){
     printf("Se recibió un mensaje de manera %s\n",estado?"incorrecta":"correcta");
     printf("El largo del mensaje es de %d bytes\n¿Desea visualizar el mensaje? (S/N): ", proto.lng);
     char SN;
-    scanf("%c", &SN);
+        while (true) {
+        // Leer entrada con fgets y luego analizar el primer carácter
+        char input[3]; // Suficiente para un carácter y el salto de línea
+        fgets(input, sizeof(input), stdin);
+
+        if (sscanf(input, "%c", &SN) == 1) {
+            break;
+        }
+        printf("Entrada inválida. Intente de nuevo: ");
+    }
     switch (SN) {
         case 'S':
         case 's':
