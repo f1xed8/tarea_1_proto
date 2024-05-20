@@ -74,8 +74,7 @@ void recibir(grupo6 &proto){
         case 'Y':
         case 'y':
         printf("%s\n",proto.data);
-        break;
-          //  pinMode(TX_PIN, OUTPUT);
+            break;
         case 'N':
         case 'n':
             printf("Entendido!\n");
@@ -132,6 +131,7 @@ int fcs(BYTE *arr, int tam_fcs) {
     return valor_fcs & 0x1FF; // Ajusta el resultado para que tenga un tamaño de 9 bits
 }
 void callback_emisor(void){
+    pinMode(TX_PIN, OUTPUT);
     grupo6 proto;
     if(transmision_iniciada_emisor){
     //Escribe en el pin TX
@@ -177,6 +177,10 @@ void callback_receptor(void){
   }
 }
 void procesa_bit(bool nivel){
+// ESTO ESTÁ SIN TERMINAR, LE FALTA QUE PUEDA DETECTAR EL LARGO DEL MENSAJE. PARA ESO DEBE CAPTAR LOS 2 FRAMES PRIMERO, SACAR EL LNG
+// CON EL LONG HACER UN FOR QUE VAYA RECIBIENDO TODOS LOS FRAMES NECESARIOS
+// AUNQUE NO SÉ SI CORRESPONDA ANTES HACER UN BUFFER QUE RECIBE EL MENSAJE COMPLETO Y QUE DESPUES SE LE APLIQUE LO DE QUE ESCRIBÍ ARRIIBA
+
     grupo6 proto;
     printf("%b", nivel);
     if(nbits_receptor < 9){
@@ -193,7 +197,6 @@ void procesa_bit(bool nivel){
 	}
 	nbits_receptor++;
 
-    transmision_iniciada_receptor = true;
 }
 void porcentajes_mensajes(){
     /*

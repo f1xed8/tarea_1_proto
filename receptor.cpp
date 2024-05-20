@@ -1,11 +1,13 @@
 #include <cstdio>   //Librería para printf
 #include "funciones.h"  // Agregamos la cabecera de funciones
+#include <unistd.h>               // for linux 
 
 int main(){ // Oye, roberto, el nico dice q tienes q inicializar el wiringpi y los pines junto con los clocks (esos los tengo declarados en funciones.h). También implementa el wiringpiISR
     grupo6 proto;
     while (true)
     {
         recibir(proto);
+        sleep(1000);   // Se le da un timepo para que se reciba el mensaje 
         bool estado = desempaquetamiento(proto, proto.lng);
         if (proto.cmd == 1)
             {
