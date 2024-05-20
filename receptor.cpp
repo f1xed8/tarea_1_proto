@@ -2,7 +2,7 @@
 #include "funciones.h"  // Agregamos la cabecera de funciones
 #include <unistd.h>               // for linux 
 
-int main(){ // Oye, roberto, el nico dice q tienes q inicializar el wiringpi y los pines junto con los clocks (esos los tengo declarados en funciones.h). También implementa el wiringpiISR
+int main(){
     grupo6 proto;
     while (true)
     {
