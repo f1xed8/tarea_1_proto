@@ -6,10 +6,14 @@
 #include <wiringPi.h>   // Agregamos la librería para GPIO
 #include <string>
 
-volatile int nbits = 0; //  Declaramos una variable para contar los bits enviados
-volatile int nbytes = 0;    // Declaramos una variable para contar los bytes enviados
+volatile int nbits_emisor = 0; //  Declaramos una variable para contar los bits enviados
+volatile int nbytes_emisor = 0;    // Declaramos una variable para contar los bytes enviados
+volatile int nbits_receptor = 0; //  Declaramos una variable para contar los bits enviados
+volatile int nbytes_receptor = 0;    // Declaramos una variable para contar los bytes enviados
 int nones = 0;  // Delcaramos para calcular paridad
 int tam_emp;
+bool transmision_iniciada_receptor = false;
+bool transmision_iniciada_emisor = false;
 
 void menu() {
     printf("Bienvenid@ a la Tarea 1!\n\nFavor, indíquenos ¿Qué acción le gustaría realizar?\n");
@@ -50,12 +54,11 @@ void enviar(grupo6 &proto){
     }
     empaquetamiento(proto); // Empaqueta los datos antes de copiarlos en el frame
     //AQUI SE EMPIEZA A MANDAR LOS DATOS DEL EMPAQUETAMIENTO
-
-
-
+    startTransmission();
     printf("Mensaje enviado correctamente!\n");
 }
 void recibir(grupo6 &proto){
+
     bool estado = desempaquetamiento(proto, proto.lng); // Definimos la variable estado para almacenar el retorno de la función desempaquetamiento
     printf("Se recibió un mensaje de manera %s\n",estado?"incorrecta":"correcta");
     printf("El largo del mensaje es de %d bytes\n¿Desea visualizar el mensaje? (S/N): ", proto.lng);
@@ -125,30 +128,28 @@ void callback_emisor(void){
     grupo6 proto;
     if(transmision_iniciada){
     //Escribe en el pin TX
-    if(nbits == 0){
+    if(nbits_emisor == 0){
       digitalWrite(TX_PIN, 0); //Bit de inicio
-    }else if(nbits < 9){
-      digitalWrite(TX_PIN, (buffer_de_envio[nbytes] >> (nbits-1)) & 0x01); //Bit de dato
-//      printf("%d",(bytes[nbytes]>>(nbits-1))&0x01);
-    }else if(nbits == 9){
-//      printf("\n");
-      nones = (buffer_de_envio[nbytes]&0x01) + ((buffer_de_envio[nbytes]&0x02)>>1) + ((buffer_de_envio[nbytes]&0x04)>>2) + 
-        ((buffer_de_envio[nbytes]&0x08)>>3) + ((buffer_de_envio[nbytes]&0x10)>>4) + ((buffer_de_envio[nbytes]&0x20)>>5) + 
-        ((buffer_de_envio[nbytes]&0x40)>>6) + ((buffer_de_envio[nbytes]&0x80)>>7);
+    }else if(nbits_emisor < 9){
+      digitalWrite(TX_PIN, (proto.frame[nbytes_emisor] >> (nbits_emisor-1)) & 0x01); //Bit de dato
+    }else if(nbits_emisor == 9){
+      nones = (proto.frame[nbytes_emisor]&0x01) + ((proto.frame[nbytes_emisor]&0x02)>>1) + ((proto.frame[nbytes_emisor]&0x04)>>2) + 
+        ((proto.frame[nbytes_emisor]&0x08)>>3) + ((proto.frame[nbytes_emisor]&0x10)>>4) + ((proto.frame[nbytes_emisor]&0x20)>>5) + 
+        ((proto.frame[nbytes_emisor]&0x40)>>6) + ((proto.frame[nbytes_emisor]&0x80)>>7);
       digitalWrite(TX_PIN, nones%2==0); //Bit de paridad
     }else{
       digitalWrite(TX_PIN, 1); //Canal libre durante 2 clocks
     }
     //Actualiza contador de bits
-    nbits++;
+    nbits_emisor++;
     //Actualiza contador de bytes
-    if(nbits == 15){
-      nbits = 0;
-      nbytes++;
+    if(nbits_emisor == 15){
+      nbits_emisor = 0;
+      nbytes_emisor++;
       //Finaliza la comunicación
-      if(nbytes==tam_emp){
-        transmision_iniciada = false;
-        nbytes = 0;
+      if(nbytes_emisor==tam_emp){
+        transmision_iniciada_emisor = false;
+        nbytes_emisor = 0;
       }
     }
   }else{
@@ -156,8 +157,24 @@ void callback_emisor(void){
     digitalWrite(TX_PIN, 1);
   }
 }
-void startTransmission(){
-  transmision_iniciada = true;
+void startTransmission_emisor(){
+  transmision_iniciada_emisor = true;
+}
+
+void callback_receptor(void){
+  bool level = digitalRead(RX_PIN);
+  if (transmision_iniciada){
+    procesa_bit(level);
+  } else if(level == 0 && !transmision_iniciada){
+    transmision_iniciada  = true;
+    nbits_receptor = 1;
+  }
+}
+void procesa_bit(bool level){
+    grupo6 proto;
+    if(nbits_receptor < 9){
+    proto.frame[nbytes_receptor] |= level << (nbits_receptor-1);
+    } 
 }
 void porcentajes_mensajes(){
     float porcentajec = c/(c + ed + end);
@@ -168,10 +185,4 @@ void porcentajes_mensajes(){
     printf("%d mensajes recibidos con error no detectado\n", end);
     printf("Entonces tenemos una recepción del %%%f\n", porcentajec);
     printf("Entonces tenemos un porcentaje de error detectado de %%%f\n y un %%%f no detectado", porcentajeed, porcentajeend);
-}
-
-int pasoPin(int largo_frame){
-
-    
-
 }
