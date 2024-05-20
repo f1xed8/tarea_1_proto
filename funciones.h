@@ -9,7 +9,7 @@
 #define TX_PIN 2    // Pin de emisión
 #define RX_PIN 3    // Pin de recepción
 bool transmision_iniciada = false;
-int c = 0; int ed = 0; int end = 0;
+//int c = 0; int ed = 0; int end = 0;
 
 void menu();
 void cerrar_receptor();

@@ -131,7 +131,7 @@ int fcs(BYTE *arr, int tam_fcs) {
 }
 void callback_emisor(void){
     grupo6 proto;
-    if(transmision_iniciada){
+    if(transmision_iniciada_emisor){
     //Escribe en el pin TX
     if(nbits_emisor == 0){
       digitalWrite(TX_PIN, 0); //Bit de inicio
@@ -193,6 +193,7 @@ void procesa_bit(bool nivel){
 	nbits_receptor++;
 }
 void porcentajes_mensajes(){
+    /*
     float porcentajec = c/(c + ed + end);
     float porcentajeed = ed/(c + ed + end);
     float porcentajeend = end/(c + ed + end);
@@ -201,4 +202,5 @@ void porcentajes_mensajes(){
     printf("%d mensajes recibidos con error no detectado\n", end);
     printf("Entonces tenemos una recepción del %f%%\n", porcentajec);
     printf("Entonces tenemos un porcentaje de error detectado de %f%%\n y un %f%% no detectado", porcentajeed, porcentajeend);
+    */
 }
