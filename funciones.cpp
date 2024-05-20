@@ -14,6 +14,9 @@ int nones = 0;  // Delcaramos para calcular paridad
 int tam_emp;
 bool transmision_iniciada_receptor = false;
 bool transmision_iniciada_emisor = false;
+int par = 0;    // Declaramos la variable que nos ayudará a buscar la paridad
+int impar = 0;  // Declaramos la variable que nos alertará que nos falta un 1 para ser par
+int s1 = 0;  //  1's
 
 void menu() {
     printf("Bienvenid@ a la Tarea 1!\n\nFavor, indíquenos ¿Qué acción le gustaría realizar?\n");
@@ -58,7 +61,7 @@ void enviar(grupo6 &proto){
     printf("Mensaje enviado correctamente!\n");
 }
 void recibir(grupo6 &proto){
-
+    printf("inicia void recibir");
     bool estado = desempaquetamiento(proto, proto.lng); // Definimos la variable estado para almacenar el retorno de la función desempaquetamiento
     printf("Se recibió un mensaje de manera %s\n",estado?"incorrecta":"correcta");
     printf("El largo del mensaje es de %d bytes\n¿Desea visualizar el mensaje? (S/N): ", proto.lng);
@@ -69,8 +72,9 @@ void recibir(grupo6 &proto){
         case 's':
         case 'Y':
         case 'y':
-            printf("%s\n",proto.data);
-            break;    pinMode(TX_PIN, OUTPUT);
+        break;
+        //    printf("%s\n",proto.data);
+          //  pinMode(TX_PIN, OUTPUT);
         case 'N':
         case 'n':
             printf("Entendido!\n");
@@ -93,6 +97,7 @@ int empaquetamiento(grupo6 &proto) {
     return tam_emp;   // Indica el tamaño del paquete
 }
 bool desempaquetamiento(grupo6 &proto, int tam) {
+    printf("inicia bool empaquetamiento");
     proto.cmd = proto.frame[0] & 0x0F;
     proto.lng = ((proto.frame[0] >> 4) & 0x0F) | ((proto.frame[1] & 0x01) << 4);
     if (tam != (proto.lng + 2)) { // Arroja error en caso de que el tamaño no coincida
@@ -170,11 +175,22 @@ void callback_receptor(void){
     nbits_receptor = 1;
   }
 }
-void procesa_bit(bool level){
+void procesa_bit(bool nivel){
     grupo6 proto;
+    printf("%b", nivel);
     if(nbits_receptor < 9){
-    proto.frame[nbytes_receptor] |= level << (nbits_receptor-1);
-    } 
+    proto.frame[nbytes_receptor] |= nivel << (nbits_receptor-1);
+    } else if (nbits_receptor == 9) {
+        par = nivel;
+        for (size_t i = 0; i < 8; i++)  {        
+			s1 += (proto.frame[nbytes_receptor] >> i) & 0x01;
+		}   if (par != (s1 % 2 == 0)) {
+			impar = true;
+		}
+		nbytes_receptor++;
+		transmision_iniciada_receptor = false;
+	}
+	nbits_receptor++;
 }
 void porcentajes_mensajes(){
     float porcentajec = c/(c + ed + end);
@@ -183,6 +199,6 @@ void porcentajes_mensajes(){
     printf("%d mensajes recibidos correctamente\n", c);
     printf("%d mensajes recibidos con error detectado\n", ed);
     printf("%d mensajes recibidos con error no detectado\n", end);
-    printf("Entonces tenemos una recepción del %%%f\n", porcentajec);
-    printf("Entonces tenemos un porcentaje de error detectado de %%%f\n y un %%%f no detectado", porcentajeed, porcentajeend);
+    printf("Entonces tenemos una recepción del %f%%\n", porcentajec);
+    printf("Entonces tenemos un porcentaje de error detectado de %f%%\n y un %f%% no detectado", porcentajeed, porcentajeend);
 }
