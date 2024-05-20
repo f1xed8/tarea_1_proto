@@ -28,5 +28,6 @@ void callback_receptor(void);
 void procesa_bit(bool level);
 void startTransmission_emisor();
 void porcentajes_mensajes();
+void limpiar_buffer();
 
 #endif //TAREA_1_FUNCIONES_H

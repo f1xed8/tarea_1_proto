@@ -61,12 +61,13 @@ void enviar(grupo6 &proto){
     printf("Mensaje enviado correctamente!\n");
 }
 void recibir(grupo6 &proto){
+    void limpiar_buffer();
     printf("inicia void recibir");
     bool estado = desempaquetamiento(proto, proto.lng); // Definimos la variable estado para almacenar el retorno de la función desempaquetamiento
     printf("Se recibió un mensaje de manera %s\n",estado?"incorrecta":"correcta");
     printf("El largo del mensaje es de %d bytes\n¿Desea visualizar el mensaje? (S/N): ", proto.lng);
     char SN;
-    scanf(" %c", &SN);
+    scanf("%c", &SN);
     switch (SN) {
         case 'S':
         case 's':
@@ -202,4 +203,8 @@ void porcentajes_mensajes(){
     printf("Entonces tenemos una recepción del %f%%\n", porcentajec);
     printf("Entonces tenemos un porcentaje de error detectado de %f%%\n y un %f%% no detectado", porcentajeed, porcentajeend);
     */
+}
+void limpiar_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) {}
 }
