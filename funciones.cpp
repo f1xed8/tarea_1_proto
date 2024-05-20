@@ -192,6 +192,8 @@ void procesa_bit(bool nivel){
 		transmision_iniciada_receptor = false;
 	}
 	nbits_receptor++;
+
+    transmision_iniciada_receptor = true;
 }
 void porcentajes_mensajes(){
     /*
