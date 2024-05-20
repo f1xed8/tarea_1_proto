@@ -12,8 +12,6 @@ volatile int nbits_receptor = 0; //  Declaramos una variable para contar los bit
 volatile int nbytes_receptor = 0;    // Declaramos una variable para contar los bytes enviados
 int nones = 0;  // Delcaramos para calcular paridad
 int tam_emp;
-bool transmision_iniciada_receptor = false;
-bool transmision_iniciada_emisor = false;
 int par = 0;    // Declaramos la variable que nos ayudará a buscar la paridad
 int impar = 0;  // Declaramos la variable que nos alertará que nos falta un 1 para ser par
 int s1 = 0;  //  1's
@@ -57,7 +55,7 @@ void enviar(grupo6 &proto){
     }
     empaquetamiento(proto); // Empaqueta los datos antes de copiarlos en el frame
     //AQUI SE EMPIEZA A MANDAR LOS DATOS DEL EMPAQUETAMIENTO
-    startTransmission();
+    startTransmission_emisor();
     printf("Mensaje enviado correctamente!\n");
 }
 void recibir(grupo6 &proto){
@@ -165,13 +163,12 @@ void callback_emisor(void){
 void startTransmission_emisor(){
   transmision_iniciada_emisor = true;
 }
-
 void callback_receptor(void){
   bool level = digitalRead(RX_PIN);
-  if (transmision_iniciada){
+  if (transmision_iniciada_receptor){
     procesa_bit(level);
-  } else if(level == 0 && !transmision_iniciada){
-    transmision_iniciada  = true;
+  } else if(level == 0 && !transmision_iniciada_receptor){
+    transmision_iniciada_receptor = true;
     nbits_receptor = 1;
   }
 }

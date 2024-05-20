@@ -17,7 +17,7 @@ int main(){
 
     grupo6 proto;
     int SN2 = 1;
-    while (SN2){
+    while (SN2 == 1){
         menu();
         int rim = 0;
         scanf("%d", &rim);   // rim = respuesta menú inicial
@@ -49,7 +49,7 @@ int main(){
                 SN2 = 1;
                 break;
     }
-       while(transmision_iniciada) {
+       while(transmision_iniciada_emisor) {
           delay(1000); // Espera mientras se realiza la transmisión
     }   
         printf("Qusieras realizar otra acción?\n");
