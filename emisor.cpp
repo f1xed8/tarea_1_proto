@@ -27,6 +27,7 @@ int main(){
                 proto.lng = 0;
                 proto.frame[0] = (proto.cmd & 0x0F) | ((proto.lng & 0x0F) << 4);
                 proto.frame[1] = ((proto.lng >> 4) & 0x01);
+                void callback_emisor(void);
                 SN2 = 1;
                 break;
             case 2:

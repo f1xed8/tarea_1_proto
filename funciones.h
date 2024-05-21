@@ -28,5 +28,8 @@ void callback_receptor(void);
 void procesa_bit(bool level);
 void startTransmission_emisor();
 void porcentajes_mensajes();
+void guardar(const char* mensaje);
+void recibir_guardar(grupo6 &proto);
+void mostrar_archivo();
 
 #endif //TAREA_1_FUNCIONES_H

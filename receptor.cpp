@@ -24,10 +24,9 @@ int main(){
                 }
                     void porcentajesmensajes();
                 } else if (proto.cmd == 3){
-                recibir(proto);
-                // guardar en un "mensaje.txt"
+                    void recibir_guardar();
                 } else if (proto.cmd == 4){
-                    // mostrar "mensaje.txt" o indicar que no existe el archivo
+                    void mostrar_archivo();
                 }
 }
     

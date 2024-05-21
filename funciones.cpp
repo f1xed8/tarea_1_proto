@@ -159,7 +159,7 @@ void callback_emisor(void){
         nbytes_emisor = 0;
       }
     }
-  }else{
+  }else{ 
     //Canal en reposo
     digitalWrite(TX_PIN, 1);
   }
@@ -209,4 +209,36 @@ void porcentajes_mensajes(){
     printf("Entonces tenemos una recepción del %f%%\n", porcentajec);
     printf("Entonces tenemos un porcentaje de error detectado de %f%%\n y un %f%% no detectado", porcentajeed, porcentajeend);
     */
+}
+void guardar(const char* mensaje) {
+    FILE *archivo = fopen("mensaje.txt", "w");
+    if (archivo == nullptr) {
+        printf("Error al abrir el archivo para escribir.\n");
+        return;
+    }
+    fprintf(archivo, "%s", mensaje);
+    fclose(archivo);
+    printf("Mensaje guardado en 'mensaje.txt'.\n");
+}
+void recibir_guardar(grupo6 &proto) {
+    bool estado = desempaquetamiento(proto, proto.lng); // Desempaqueta el mensaje
+    if (estado) {
+        printf("Mensaje recibido correctamente.\n");
+        guardar(reinterpret_cast<char*>(proto.data));
+    } else {
+        printf("Error en el desempaquetamiento del mensaje.\n");
+    }
+}
+void mostrar_archivo() {
+    FILE *archivo = fopen("mensaje.txt", "r");
+    if (archivo == nullptr) {
+        printf("El archivo 'mensaje.txt' no existe.\n");
+        return;
+    }
+    char buffer[256];
+    printf("Contenido de 'mensaje.txt':\n");
+    while (fgets(buffer, sizeof(buffer), archivo) != nullptr) {
+        printf("%s", buffer);
+    }
+    fclose(archivo);
 }
