@@ -23,7 +23,6 @@ int main(){
         int rim = 0;
         scanf("%d", &rim);   // rim = respuesta menú inicial
         switch (rim) {
-            printf("Aviso: se iniciará el switch\n");
             case 1:
                 printf("Aviso: se iniciará el caso 1\n");
                 proto.cmd = 1;

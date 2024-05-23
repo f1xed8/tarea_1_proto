@@ -20,7 +20,7 @@ void recibir(grupo6 &proto);
 void archivo_texto();
 
 int empaquetamiento(grupo6 &proto);
-bool desempaquetamiento(grupo6 &proto, int tam);
+int desempaquetamiento(grupo6 &proto, int tam);
 int fcs(BYTE *arr, int tam_fcs);
 
 void callback_emisor(void);

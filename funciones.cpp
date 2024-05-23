@@ -17,6 +17,7 @@ int tam_emp;
 int par = 0;    // Declaramos la variable que nos ayudará a buscar la paridad
 int impar = 0;  // Declaramos la variable que nos alertará que nos falta un 1 para ser par
 int s1 = 0;  //  1's
+int comando;
 
 void menu() {
     printf("Aviso: se iniciará la función menú\n");
@@ -104,10 +105,11 @@ int empaquetamiento(grupo6 &proto) {
     tam_emp = proto.lng + 4;
     return tam_emp;   // Indica el tamaño del paquete
 }
-bool desempaquetamiento(grupo6 &proto, int tam) {
+int desempaquetamiento(grupo6 &proto, int tam) {
     printf("Aviso: se iniciará la función desempaquetamiento\n");
     printf("inicia bool desempaquetamiento");
     proto.cmd = proto.frame[0] & 0x0F;
+    comando = proto.cmd;
     proto.lng = ((proto.frame[0] >> 4) & 0x0F) | ((proto.frame[1] & 0x01) << 4);
     if (tam != (proto.lng + 2)) { // Arroja error en caso de que el tamaño no coincida
         return false;
@@ -122,7 +124,7 @@ bool desempaquetamiento(grupo6 &proto, int tam) {
     if (fcs_calculado != fcs_recibido) {
         return false;
     }
-    return true;
+    return comando;
 }
 int fcs(BYTE *arr, int tam_fcs) {
     printf("Aviso: se iniciará la función FCS\n");
