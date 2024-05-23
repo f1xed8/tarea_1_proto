@@ -18,11 +18,14 @@ int main(){
     grupo6 proto;
     int SN2 = 1;
     while (SN2 == 1){
+        printf("Aviso: se iniciará el while\n");
         menu();
         int rim = 0;
         scanf("%d", &rim);   // rim = respuesta menú inicial
         switch (rim) {
+            printf("Aviso: se iniciará el switch\n");
             case 1:
+                printf("Aviso: se iniciará el caso 1\n");
                 proto.cmd = 1;
                 proto.lng = 0;
                 proto.frame[0] = (proto.cmd & 0x0F) | ((proto.lng & 0x0F) << 4);
@@ -31,31 +34,36 @@ int main(){
                 SN2 = 1;
                 break;
             case 2:
+            printf("Aviso: se iniciará el caso 2\n");
                 mensaje_prueba(proto);
                 SN2 = 1;
                 break;
             case 3:
+            printf("Aviso: se iniciará el caso 3\n");
                 proto.cmd=3;
                 enviar(proto);
                 SN2 = 1;
                 break;
            case 4:
+                printf("Aviso: se iniciará el caso 4\n");
                 proto.cmd=4;
                 archivo_texto();
                 SN2 = 1;
                 break;
            default:
+                printf("Aviso: se iniciará el caso default\n");
                 proto.cmd=5;
                 printf("Acción no encontrada :'(\n");
                 SN2 = 1;
                 break;
-    }
-       while(transmision_iniciada_emisor) {
+        }
+        while(transmision_iniciada_emisor) {
           delay(1000); // Espera mientras se realiza la transmisión
-    }   
+        }
         printf("Qusieras realizar otra acción?\n");
         printf("1.- Sí\n2.- No\n");
         scanf("%d", SN2);
     }
+        printf("Aviso: fin del while\n");
     return 0;
 }

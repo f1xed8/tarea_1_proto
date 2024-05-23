@@ -19,14 +19,17 @@ int impar = 0;  // Declaramos la variable que nos alertará que nos falta un 1 p
 int s1 = 0;  //  1's
 
 void menu() {
+    printf("Aviso: se iniciará la función menú\n");
     printf("Bienvenid@ a la Tarea 1!\n\nFavor, indíquenos ¿Qué acción le gustaría realizar?\n");
     printf("1.- Cerrar el programa receptor         3.- Enviar mensaje de texto\n"
            "2.- Enviar mensaje de prueba            4.- Visualizar mensaje de archivo de texto\n");
 }
 void cerrar_receptor(){
+    printf("Aviso: se iniciará la función cerrar_receptor\n");
     exit(0);
 }
 void mensaje_prueba(grupo6 &proto){
+    printf("Aviso: se iniciará la función mensaje_prueba\n");
     for (size_t i = 0; i < 10; i++)
     {
         proto.cmd=2;
@@ -42,6 +45,7 @@ void mensaje_prueba(grupo6 &proto){
     printf("El comando para esta acción es: %d\n",proto.cmd);
 }
 void enviar(grupo6 &proto){
+    printf("Aviso: se iniciará la función enviar\n");
     printf("Favor, ingrese su mensaje a enviar\n");
     while (true) {
         scanf("%s", proto.data); // Almacena un mensaje de máximo 31 bytes
@@ -61,6 +65,7 @@ void enviar(grupo6 &proto){
     printf("Mensaje enviado correctamente!\n");
 }
 void recibir(grupo6 &proto){
+    printf("Aviso: se iniciará la función recibir\n");
     printf("inicia void recibir");
     bool estado = desempaquetamiento(proto, proto.lng); // Definimos la variable estado para almacenar el retorno de la función desempaquetamiento
     printf("Se recibió un mensaje de manera %s\n",estado?"incorrecta":"correcta");
@@ -85,8 +90,10 @@ void recibir(grupo6 &proto){
     }
 }
 void archivo_texto(){
+    printf("Aviso: se iniciará la función archivo_texto\n");
 }
 int empaquetamiento(grupo6 &proto) {
+    printf("Aviso: se iniciará la función empaquetamiento\n");
     printf("inicia bool empaquetamiento");
     proto.frame[0] = (proto.cmd & 0x0F) | ((proto.lng & 0x0F) << 4); // Agregamos al paquete el cmd y los 4 bits que nos alcanzaron a entrar del lng dentro del primer byte
     proto.frame[1] = ((proto.lng >> 4) & 0x01); // Terminamos de cargar el lng
@@ -98,6 +105,7 @@ int empaquetamiento(grupo6 &proto) {
     return tam_emp;   // Indica el tamaño del paquete
 }
 bool desempaquetamiento(grupo6 &proto, int tam) {
+    printf("Aviso: se iniciará la función desempaquetamiento\n");
     printf("inicia bool desempaquetamiento");
     proto.cmd = proto.frame[0] & 0x0F;
     proto.lng = ((proto.frame[0] >> 4) & 0x0F) | ((proto.frame[1] & 0x01) << 4);
@@ -117,6 +125,7 @@ bool desempaquetamiento(grupo6 &proto, int tam) {
     return true;
 }
 int fcs(BYTE *arr, int tam_fcs) {
+    printf("Aviso: se iniciará la función FCS\n");
     int valor_fcs = 0; // Inicializa el valor del fcs a 0
     for (int i = 0; i < tam_fcs; i++) {
         valor_fcs ^= arr[i]; // Realiza una operación XOR con cada byte del arreglo
@@ -131,6 +140,7 @@ int fcs(BYTE *arr, int tam_fcs) {
     return valor_fcs & 0x1FF; // Ajusta el resultado para que tenga un tamaño de 9 bits
 }
 void callback_emisor(void){
+    printf("Aviso: se iniciará la función callback_emisor\n");
     pinMode(TX_PIN, OUTPUT);
     grupo6 proto;
     if(transmision_iniciada_emisor){
@@ -165,9 +175,11 @@ void callback_emisor(void){
   }
 }
 void startTransmission_emisor(){
+  printf("Aviso: se iniciará la función star_transmision_emisor\n");
   transmision_iniciada_emisor = true;
 }
 void callback_receptor(void){
+  printf("Aviso: se iniciará la función callcabk_receptor\n");
   bool level = digitalRead(RX_PIN);
   if (transmision_iniciada_receptor){
     procesa_bit(level);
@@ -177,10 +189,10 @@ void callback_receptor(void){
   }
 }
 void procesa_bit(bool nivel){
+    printf("Aviso: se iniciará la función procesa_bit\n");
 // ESTO ESTÁ SIN TERMINAR, LE FALTA QUE PUEDA DETECTAR EL LARGO DEL MENSAJE. PARA ESO DEBE CAPTAR LOS 2 FRAMES PRIMERO, SACAR EL LNG
 // CON EL LONG HACER UN FOR QUE VAYA RECIBIENDO TODOS LOS FRAMES NECESARIOS
 // AUNQUE NO SÉ SI CORRESPONDA ANTES HACER UN BUFFER QUE RECIBE EL MENSAJE COMPLETO Y QUE DESPUES SE LE APLIQUE LO DE QUE ESCRIBÍ ARRIIBA
-
     grupo6 proto;
     printf("%b", nivel);
     if(nbits_receptor < 9){
@@ -211,6 +223,7 @@ void porcentajes_mensajes(){
     */
 }
 void guardar(const char* mensaje) {
+    printf("Aviso: se iniciará la función guardar\n");
     FILE *archivo = fopen("mensaje.txt", "w");
     if (archivo == nullptr) {
         printf("Error al abrir el archivo para escribir.\n");
@@ -221,6 +234,7 @@ void guardar(const char* mensaje) {
     printf("Mensaje guardado en 'mensaje.txt'.\n");
 }
 void recibir_guardar(grupo6 &proto) {
+    printf("Aviso: se iniciará la función recibir_guardar\n");
     bool estado = desempaquetamiento(proto, proto.lng); // Desempaqueta el mensaje
     if (estado) {
         printf("Mensaje recibido correctamente.\n");
@@ -230,6 +244,7 @@ void recibir_guardar(grupo6 &proto) {
     }
 }
 void mostrar_archivo() {
+    printf("Aviso: se iniciará la función mostrar_archivo\n");
     FILE *archivo = fopen("mensaje.txt", "r");
     if (archivo == nullptr) {
         printf("El archivo 'mensaje.txt' no existe.\n");
