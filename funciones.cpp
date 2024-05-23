@@ -107,7 +107,6 @@ int empaquetamiento(grupo6 &proto) {
 }
 int desempaquetamiento(grupo6 &proto, int tam) {
     printf("Aviso: se iniciará la función desempaquetamiento\n");
-    printf("inicia bool desempaquetamiento");
     proto.cmd = proto.frame[0] & 0x0F;
     comando = proto.cmd;
     proto.lng = ((proto.frame[0] >> 4) & 0x0F) | ((proto.frame[1] & 0x01) << 4);
@@ -177,7 +176,7 @@ void callback_emisor(void){
   }
 }
 void startTransmission_emisor(){
-  printf("Aviso: se iniciará la función star_transmision_emisor\n");
+  printf("Aviso: se iniciará la función start_transmision_emisor\n");
   transmision_iniciada_emisor = true;
 }
 void callback_receptor(void){
