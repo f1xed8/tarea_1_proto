@@ -106,6 +106,7 @@ int empaquetamiento(grupo6 &proto) {
     return tam_emp;   // Indica el tamaño del paquete
 }
 int desempaquetamiento(grupo6 &proto, int tam) {
+    // Implementar int LeerMensaje
     printf("Aviso: se iniciará la función desempaquetamiento\n");
     proto.cmd = proto.frame[0] & 0x0F;
     comando = proto.cmd;

@@ -3,12 +3,13 @@
 #include <unistd.h>               // for linux 
 
 int main(){
+    // Agregar do-while
     grupo6 proto;
     while (true)
-    {
-        recibir(proto);
+    {   
         sleep(1000);   // Se le da un timepo para que se reciba el mensaje 
-        bool estado = desempaquetamiento(proto, proto.lng);
+        printf("Aviso: se iniciará la función desempaquetamiento desde receptor\n");
+        int tamaño = desempaquetamiento(proto, proto.lng);
         printf("Aviso: se recibió el empaquetamiento\n");
         if (proto.cmd == 1)
             {
